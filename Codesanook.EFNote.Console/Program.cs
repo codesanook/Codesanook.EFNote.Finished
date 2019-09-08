@@ -9,8 +9,7 @@ namespace Codesanook.EFNote.Console
     {
         public static void Main(string[] args)
         {
-            //********** Traditional SQL insert with ADO.NET **********
-            // User Windows Authentication log in as a recommended log in
+            // Insert a new record with ADO.NET
             var connectionString = ConfigurationManager.ConnectionStrings["NoteConnectionString"].ConnectionString;
             using (var connection = new SqlConnection(connectionString))
             {
@@ -34,7 +33,7 @@ namespace Codesanook.EFNote.Console
                 System.Console.WriteLine($"New notebook inserted with rows effected {rowsEffected}");
             }
 
-            //********** Insert with EF **********
+            //Insert a new record with ORM (Entity Framework)
             using (var dbContext = new NoteDbContext())
             {
                 var notebook = new Notebook()

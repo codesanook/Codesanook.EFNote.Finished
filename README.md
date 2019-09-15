@@ -16,14 +16,21 @@ Just another web-based note app implemented by Entity Framework and C#
 - Implementation of repository
 - Autofac configuration
 
-### Codesanook.EFNote.MvcWeb (.NET Standard)
+### Codesanook.EFNote.Utility (.NET Standard)
+- Utility or help classes that can be used in all projects
+
+### Codesanook.EFNote.MvcWeb
 - .NET Framework front-end web project
 
 ### Codesanook.EFNote.MvcCoreWeb
 - .NET Core front-end web project
 
-### Codesanook.EFNote.Utility
-- Utility or help classes that can be used in all projects
+### Codesanook.EFNote.MvcCoreWeb
+- .NET Core front-end web project
 
-## Libraries/framework dependencies
+### Codesanook.EFNote.ConsoleApp
+- .NET Core front-end console project
+
+## Libraries/Framework dependencies
+- EntityFramework 6.3.0-preview9-19423-04
 - Bootstrap 4

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Codesanook.EFNote.Utility
+namespace Codesanook.EFNote.Api
 {
     public class Class1
     {

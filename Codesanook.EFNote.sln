@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.Core", "Codesanook.EFNote.Core\Codesanook.EFNote.Core.csproj", "{CAC063FA-EBA5-4C1D-A3F6-1562455E21C3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.Utility", "Codesanook.EFNote.Utility\Codesanook.EFNote.Utility.csproj", "{016E4967-0B1F-422C-A3DD-31EC490ADB02}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.Infrastructure", "Codesanook.EFNote.Infrastructure\Codesanook.EFNote.Infrastructure.csproj", "{D298EDD7-6FEF-41C5-92D2-101EC1303344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.Infrastructure", "Codesanook.EFNote.Infrastructure\Codesanook.EFNote.Infrastructure.csproj", "{D298EDD7-6FEF-41C5-92D2-101EC1303344}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.MvcWeb", "Codesanook.EFNote.MvcWeb\Codesanook.EFNote.MvcWeb.csproj", "{B7DDAD3D-3776-4F55-8BA0-AF6E856815DB}"
 EndProject
@@ -16,9 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.MvcCoreWeb", "Codesanook.EFNote.MvcCoreWeb\Codesanook.EFNote.MvcCoreWeb.csproj", "{2AF2AC33-0775-455A-9C46-663FB1702903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.MvcCoreWeb", "Codesanook.EFNote.MvcCoreWeb\Codesanook.EFNote.MvcCoreWeb.csproj", "{2AF2AC33-0775-455A-9C46-663FB1702903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.ConsoleApp", "Codesanook.EFNote.ConsoleApp\Codesanook.EFNote.ConsoleApp.csproj", "{FED4E10F-12A2-49C5-B2B6-9AEB0A1E0D55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.ConsoleApp", "Codesanook.EFNote.ConsoleApp\Codesanook.EFNote.ConsoleApp.csproj", "{FED4E10F-12A2-49C5-B2B6-9AEB0A1E0D55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.Utilities", "Codesanook.EFNote.Utilities\Codesanook.EFNote.Utilities.csproj", "{60C015B6-07FB-468D-989B-104CDAB3FA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.Api", "Codesanook.EFNote.Api\Codesanook.EFNote.Api.csproj", "{321D9B55-E6C6-462B-9D9C-341CC7181F1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.Core", "Codesanook.EFNote.Core\Codesanook.EFNote.Core.csproj", "{75C44AA3-B125-43D5-BEA0-473B772908AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CAC063FA-EBA5-4C1D-A3F6-1562455E21C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAC063FA-EBA5-4C1D-A3F6-1562455E21C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAC063FA-EBA5-4C1D-A3F6-1562455E21C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAC063FA-EBA5-4C1D-A3F6-1562455E21C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{016E4967-0B1F-422C-A3DD-31EC490ADB02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{016E4967-0B1F-422C-A3DD-31EC490ADB02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{016E4967-0B1F-422C-A3DD-31EC490ADB02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{016E4967-0B1F-422C-A3DD-31EC490ADB02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D298EDD7-6FEF-41C5-92D2-101EC1303344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D298EDD7-6FEF-41C5-92D2-101EC1303344}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D298EDD7-6FEF-41C5-92D2-101EC1303344}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +44,18 @@ Global
 		{FED4E10F-12A2-49C5-B2B6-9AEB0A1E0D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FED4E10F-12A2-49C5-B2B6-9AEB0A1E0D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FED4E10F-12A2-49C5-B2B6-9AEB0A1E0D55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C015B6-07FB-468D-989B-104CDAB3FA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C015B6-07FB-468D-989B-104CDAB3FA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C015B6-07FB-468D-989B-104CDAB3FA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C015B6-07FB-468D-989B-104CDAB3FA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{321D9B55-E6C6-462B-9D9C-341CC7181F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{321D9B55-E6C6-462B-9D9C-341CC7181F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{321D9B55-E6C6-462B-9D9C-341CC7181F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{321D9B55-E6C6-462B-9D9C-341CC7181F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C44AA3-B125-43D5-BEA0-473B772908AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C44AA3-B125-43D5-BEA0-473B772908AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C44AA3-B125-43D5-BEA0-473B772908AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C44AA3-B125-43D5-BEA0-473B772908AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

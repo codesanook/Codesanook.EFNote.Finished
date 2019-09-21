@@ -1,7 +1,7 @@
-﻿using Codesanook.EFNote.Console.Models;
+﻿using Codesanook.EFNote.Core.Models;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Codesanook.EFNote.Console.EntityConfigurations
+namespace Codesanook.EFNote.Infrastructure.EntityConfigurations
 {
     public class NoteConfiguration : EntityTypeConfiguration<Note>
     {

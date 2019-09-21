@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Codesanook.EFNote.Console.Models
+namespace Codesanook.EFNote.Core.Models
 {
     public class Tag
     {

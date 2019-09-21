@@ -1,12 +1,24 @@
-﻿using System;
+﻿using Codesanook.EFNote.Core.Models;
 
-namespace Codesanook.EFNote.ConsoleApp
+namespace Codesanook.EFNote.Console
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Insert a new record with ORM (Entity Framework)
+            using (var dbContext = new NoteDbContext())
+            {
+                var notebook = new Notebook()
+                {
+                    Name = "Programming Tips"
+                };
+
+                dbContext.Notebooks.Add(notebook);
+                dbContext.SaveChanges();
+
+                System.Console.WriteLine($"New notebook inserted with Id {notebook.Id}");
+            }
         }
     }
 }

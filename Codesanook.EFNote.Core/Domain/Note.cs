@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Codesanook.EFNote.Console.Models
+namespace Codesanook.EFNote.Core.Models
 {
     public class Note
     {
@@ -15,6 +15,7 @@ namespace Codesanook.EFNote.Console.Models
 
         //TODO why ICollection not IList
         public virtual ICollection<Tag> Tags { get; set; }
+
         //https://stackoverflow.com/questions/1162816/naming-conventions-state-versus-status
         public string Status { get; set; } //Active, Archived, Deleted convert to adjust
     }

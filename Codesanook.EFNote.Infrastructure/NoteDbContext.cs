@@ -1,5 +1,5 @@
-﻿using Codesanook.EFNote.Console.EntityConfigurations;
-using Codesanook.EFNote.Console.Models;
+﻿using Codesanook.EFNote.Core.Models;
+using Codesanook.EFNote.Infrastructure.EntityConfigurations;
 using System.Data.Entity;
 
 namespace Codesanook.EFNote.Console

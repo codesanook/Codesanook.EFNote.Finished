@@ -7,7 +7,7 @@ namespace Codesanook.EFNote.Core.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Content { get; set; }
+        public string ContentBody { get; set; }
         public DateTime CreatedUtc { get; set; }
         public DateTime? UpdatedUtc { get; set; }
         public int ViewCount { get; set; }
@@ -15,8 +15,5 @@ namespace Codesanook.EFNote.Core.Models
 
         //TODO why ICollection not IList
         public virtual ICollection<Tag> Tags { get; set; }
-
-        //https://stackoverflow.com/questions/1162816/naming-conventions-state-versus-status
-        public string Status { get; set; } //Active, Archived, Deleted convert to adjust
     }
 }

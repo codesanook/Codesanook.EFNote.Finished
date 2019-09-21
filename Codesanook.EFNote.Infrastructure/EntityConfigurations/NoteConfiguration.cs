@@ -10,7 +10,7 @@ namespace Codesanook.EFNote.Infrastructure.EntityConfigurations
             this.ToTable($"{nameof(Note)}s");
             this.HasKey<int>(x => x.Id);
             this.Property(x => x.Title);
-            this.Property(x => x.Content);
+            this.Property(x => x.ContentBody);
             this.HasRequired(x => x.Notebook).WithMany(x=>x.Notes);
             this.HasMany(x => x.Tags).WithMany(x=>x.Notes);
         }

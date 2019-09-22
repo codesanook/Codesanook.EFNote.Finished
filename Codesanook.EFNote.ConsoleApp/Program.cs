@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace Codesanook.EFNote.ConsoleApp
@@ -128,7 +127,7 @@ namespace Codesanook.EFNote.ConsoleApp
 
         public static void Main(string[] args)
         {
-            QueryNoteWithJoin();
+            CreateNote();
         }
     }
 }

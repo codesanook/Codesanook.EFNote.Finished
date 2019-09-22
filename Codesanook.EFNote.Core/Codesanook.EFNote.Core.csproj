@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="EntityFramework" Version="6.3.0-rc1-19458-04" />
   </ItemGroup>
 
 </Project>

@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Codesanook.EFNote.MvcCoreWeb.Models;
+using Codesanook.EFNote.Core;
 
 namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly NoteDbContext dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(NoteDbContext dbContext) => this.dbContext = dbContext;
 
         public IActionResult Index()
         {
-            return View();
+            const int noteId = 1;
+            var note = dbContext.Notes.Find(noteId);
+            return View(note);
         }
 
         public IActionResult Privacy()

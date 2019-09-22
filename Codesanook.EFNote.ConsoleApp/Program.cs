@@ -29,7 +29,7 @@ namespace Codesanook.EFNote.ConsoleApp
                 {
                     Title = "EF Tips",
                     ContentBody = "How to create entity classes from an existing database...",
-                    CreatedUtc = DateTime.UtcNow,
+                    //CreatedUtc = DateTime.UtcNow,
                     Notebook = notebook
                 };
                 note.Tags.Add(tag);
@@ -43,30 +43,30 @@ namespace Codesanook.EFNote.ConsoleApp
             }
         }
 
-        static void GetNote()
+        static void GetNote(int noteId)
         {
             using (var dbContext = new NoteDbContext())
             {
-                var note = dbContext.Notes.Find(2);
+                var note = dbContext.Notes.Find(noteId);
                 Console.WriteLine(note);
             }
         }
 
-        static void UpdateNote()
+        static void UpdateNote(int noteId)
         {
             Console.WriteLine("Before updating");
-            GetNote();
+            GetNote(noteId);
 
             using (var dbContext = new NoteDbContext())
             {
-                var note = dbContext.Notes.Find(2);
+                var note = dbContext.Notes.Find(noteId);
                 note.Title = "EF configuration Tips";
                 note.UpdatedUtc = DateTime.UtcNow;
                 dbContext.SaveChanges();
             }
 
             Console.WriteLine("After updating");
-            GetNote();
+            GetNote(noteId);
         }
 
         static void DeleteNote()
@@ -127,7 +127,7 @@ namespace Codesanook.EFNote.ConsoleApp
 
         public static void Main(string[] args)
         {
-            CreateNote();
+            GetNote(1);
         }
     }
 }

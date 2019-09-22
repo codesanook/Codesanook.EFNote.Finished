@@ -17,13 +17,19 @@ namespace Codesanook.EFNote.ConsoleApp
 
         public int Id { get; set; }
 
+        [Required]
+        [StringLength(512)]
         public string Title { get; set; }
 
+        [Required]
         public string ContentBody { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedUtc { get; set; }
 
         public DateTime? UpdatedUtc { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public int ViewCount { get; set; }
 
@@ -44,7 +50,7 @@ namespace Codesanook.EFNote.ConsoleApp
                     $"{nameof(ContentBody)}: {ContentBody}",
                     $"{nameof(CreatedUtc)}: {CreatedUtc}",
                     $"{nameof(UpdatedUtc)}: {UpdatedUtc}",
-                    $"{nameof(ViewCount)}: {UpdatedUtc}",
+                    $"{nameof(ViewCount)}: {ViewCount}",
                     $"{nameof(NotebookId)}: {NotebookId}",
 
                     $"Notebook name: {this.Notebook.Name}",

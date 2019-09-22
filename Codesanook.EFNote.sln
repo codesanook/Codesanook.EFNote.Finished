@@ -18,7 +18,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.Core", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.MvcCoreWeb", "Codesanook.EFNote.MvcCoreWeb\Codesanook.EFNote.MvcCoreWeb.csproj", "{2EBBDE2C-1F23-429D-B943-ACDD556AF453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codesanook.EFNote.ConsoleApp", "Codesanook.EFNote.ConsoleApp\Codesanook.EFNote.ConsoleApp.csproj", "{DB1DBD66-9BA2-4389-B2E0-4AA3EB2C14F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codesanook.EFNote.ConsoleApp", "Codesanook.EFNote.ConsoleApp\Codesanook.EFNote.ConsoleApp.csproj", "{DB1DBD66-9BA2-4389-B2E0-4AA3EB2C14F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{B6AFD5E3-8D4C-4270-96D1-0705FADBEAB2}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\create-database.sql = scripts\create-database.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

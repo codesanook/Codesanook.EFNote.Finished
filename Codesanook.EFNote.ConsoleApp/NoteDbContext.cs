@@ -18,6 +18,11 @@ namespace Codesanook.EFNote.ConsoleApp
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Notebook>()
+                .HasMany(e => e.Notes)
+                .WithRequired(e => e.Notebook)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Note>()
                 .HasMany(e => e.Tags)
                 .WithMany(e => e.Notes)

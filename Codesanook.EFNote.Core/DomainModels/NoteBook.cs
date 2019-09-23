@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Codesanook.EFNote.Core.Domain
+namespace Codesanook.EFNote.Core.DomainModels
 {
     public class Notebook
     {

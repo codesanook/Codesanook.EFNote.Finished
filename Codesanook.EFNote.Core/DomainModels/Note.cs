@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace Codesanook.EFNote.Core.Domain
+namespace Codesanook.EFNote.Core.DomainModels
 {
     public class Note
     {

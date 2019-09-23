@@ -1,0 +1,19 @@
+﻿@using Codesanook.EFNote.MvcCoreWeb.ViewModels
+@model NoteIndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="main-panel">
+    <div class="notebook-list">
+        @foreach (var notebook in Model.AllNotebooks) {
+            @Html.ActionLink(notebook.Value.Name, "index", new { selectedNotebookId = notebook.Value.Id }, new {@class = "notebook-item" })
+        }
+    </div>
+    <div class="col-12">
+        note
+    </div>
+    <div class="col-12">
+        content
+    </div>
+
+</div>

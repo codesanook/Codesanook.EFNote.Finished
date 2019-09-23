@@ -1,4 +1,4 @@
-using Codesanook.EFNote.Core.Domain;
+using Codesanook.EFNote.Core.DomainModels;
 using System.Data.Entity;
 
 namespace Codesanook.EFNote.Core

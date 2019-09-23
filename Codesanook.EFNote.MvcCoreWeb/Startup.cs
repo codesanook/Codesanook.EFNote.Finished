@@ -53,7 +53,8 @@ namespace Codesanook.EFNote.MvcCoreWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Note}/{action=Index}/{id?}" 
+                );
             });
 
         }

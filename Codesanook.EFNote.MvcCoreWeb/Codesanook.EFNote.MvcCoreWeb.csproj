@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Codesanook.EFNote.Core\Codesanook.EFNote.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="css2\" />
   </ItemGroup>
 
 </Project>

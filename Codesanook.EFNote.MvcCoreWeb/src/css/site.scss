@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/scss/font-awesome";
+
+.main-panel {
+  @include make-row();
+}
+.notebook-list {
+  @include make-col-ready();
+  &.selected {
+    background-color: #ff0000;
+  }
+}
+
+.notebook-item {
+}

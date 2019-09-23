@@ -5,15 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="css2\**" />
+    <Content Remove="css2\**" />
+    <EmbeddedResource Remove="css2\**" />
+    <EntityDeploy Remove="css2\**" />
+    <None Remove="css2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Codesanook.EFNote.Core\Codesanook.EFNote.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="css2\" />
   </ItemGroup>
 
 </Project>

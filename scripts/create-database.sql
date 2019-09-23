@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[Tags] (
 CREATE TABLE [dbo].[Notes](
 	[Id] INT IDENTITY(1,1) NOT NULL,
 	[Title] NVARCHAR(512) NOT NULL,
-	[ContentBody] NVARCHAR(MAX) NOT NULL,
+	[Content] NVARCHAR(MAX) NOT NULL,
 	[CreatedUtc] DATETIME NOT NULL CONSTRAINT [DF_Notes_CreatedUtc] DEFAULT GETUTCDATE(), -- Default to UTC now
 	[UpdatedUtc] DATETIME NULL,
 	[IsDeleted] BIT NOT NULL CONSTRAINT [DF_Notes_IsDeleted] DEFAULT 0, -- Default to false

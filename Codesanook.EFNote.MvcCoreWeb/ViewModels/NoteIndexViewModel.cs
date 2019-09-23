@@ -8,7 +8,9 @@ namespace Codesanook.EFNote.MvcCoreWeb.ViewModels
 {
     public class NoteIndexViewModel
     {
-        public IReadOnlyCollection<(Notebook Value, bool IsSelected)> AllNotebooks { get; set; }
-        public IReadOnlyCollection<(Note Value, bool IsSelected)> AllNotesInSelectedNotebook { get; set; }
+        public IReadOnlyCollection<Notebook> AllNotebooks { get; set; }
+        public Notebook SelectedNotebook { get; set; }
+        public IReadOnlyCollection<NoteViewModel> AllNotesForSelectedNotebook { get; set; }
+        public NoteViewModel SelectedNote { get; set; }
     }
 }

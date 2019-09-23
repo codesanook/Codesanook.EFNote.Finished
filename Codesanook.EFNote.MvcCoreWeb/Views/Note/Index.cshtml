@@ -5,15 +5,60 @@
 }
 <div class="main-panel">
     <div class="notebook-list">
-        @foreach (var notebook in Model.AllNotebooks) {
-            @Html.ActionLink(notebook.Value.Name, "index", new { selectedNotebookId = notebook.Value.Id }, new {@class = "notebook-item" })
+        @foreach (var notebook in Model.AllNotebooks)
+        {
+            @Html.ActionLink(
+               notebook.Name,
+               "index",
+               new { selectedNotebookId = notebook.Id },
+               new
+                    {
+                   @class = notebook.Id == Model.SelectedNotebook?.Id
+                   ? "notebook-list-item -selected"
+                   : "notebook-list-item"
+               }
+           )
         }
     </div>
-    <div class="col-12">
-        note
+    <div class="note-list">
+        @foreach (var note in Model.AllNotesForSelectedNotebook)
+        {
+            @Html.ActionLink(
+               note.Title,
+               "index",
+               new { selectedNotebookId = note.NotebookId, selectedNoteId = note.Id },
+               new
+                    {
+                   @class = note.Id == Model.SelectedNote?.Id
+                   ? "note-list-item -selected"
+                   : "note-list-item"
+               }
+           )
+        }
     </div>
-    <div class="col-12">
-        content
+    <div class="note-item-panel">
+        <div class="note-menu-bar">
+            <a href="@Url.Action("Edit", new { id = Model.SelectedNote?.Id })">
+                <i class="fa fa-save"></i>
+            </a>
+        </div>
+        <div class="note-item">
+            <form>
+                @Html.HiddenFor(m=>m.SelectedNote.Id)
+                @Html.HiddenFor(m=>m.SelectedNote.NotebookId)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SelectedNote.Title)
+                    @Html.TextBoxFor(m => m.SelectedNote.Title, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SelectedNote.Content)
+                    @Html.TextAreaFor(m => m.SelectedNote.Content, new { @class = "form-control", row = 10 })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SelectedNote.Tags)
+                    @Html.TextBoxFor(m => m.SelectedNote.Tags, new { @class = "form-control" })
+                </div>
+            </form>
+        </div>
     </div>
-
 </div>

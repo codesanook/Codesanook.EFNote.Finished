@@ -6,10 +6,30 @@
 }
 .notebook-list {
   @include make-col-ready();
-  &.selected {
+}
+
+.note-list {
+  @include make-col-ready();
+}
+
+.notebook-list-item {
+  display: block;
+  &.-selected {
     background-color: #ff0000;
   }
 }
 
-.notebook-item {
+.note-list-item {
+  display: block;
+  &.-selected {
+    background-color: #ff0000;
+  }
+}
+
+.note-item-panel {
+  @include make-col-ready();
+
+}
+
+.note-item {
 }

@@ -20,7 +20,7 @@ namespace Codesanook.EFNote.Core.DomainModels
         public string Title { get; set; }
 
         [Required]
-        public string ContentBody { get; set; }
+        public string Content { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedUtc { get; set; }
@@ -44,7 +44,7 @@ namespace Codesanook.EFNote.Core.DomainModels
                 new[]{
                     $"{nameof(Id)}: {Id}",
                     $"{nameof(Title)}: {Title}",
-                    $"{nameof(ContentBody)}: {ContentBody}",
+                    $"{nameof(Content)}: {Content}",
                     $"{nameof(CreatedUtc)}: {CreatedUtc}",
                     $"{nameof(UpdatedUtc)}: {UpdatedUtc}",
                     $"{nameof(ViewCount)}: {ViewCount}",

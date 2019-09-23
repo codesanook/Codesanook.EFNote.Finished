@@ -28,7 +28,7 @@ namespace Codesanook.EFNote.ConsoleApp
                 var note = new Note()
                 {
                     Title = "EF Tips",
-                    ContentBody = "How to create entity classes from an existing database...",
+                    Content = "How to create entity classes from an existing database...",
                     //CreatedUtc = DateTime.UtcNow,
                     Notebook = notebook
                 };

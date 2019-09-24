@@ -2,34 +2,39 @@
 @import "~font-awesome/scss/font-awesome";
 
 .main-panel {
-  @include make-row();
+    @include make-row();
 }
+
 .notebook-list {
-  @include make-col-ready();
+    @include make-col-ready();
 }
 
 .note-list {
-  @include make-col-ready();
+    @include make-col-ready();
 }
 
 .notebook-list-item {
-  display: block;
-  &.-selected {
-    background-color: #ff0000;
-  }
+    display: block;
+
+    &.-selected {
+        background-color: #ff0000;
+    }
 }
 
 .note-list-item {
-  display: block;
-  &.-selected {
-    background-color: #ff0000;
-  }
+    display: block;
+
+    &.-selected {
+        background-color: #ff0000;
+    }
 }
 
 .note-item-panel {
-  @include make-col-ready();
-
+    @include make-col-ready();
 }
 
 .note-item {
+    .content{
+       height:300px; 
+    }
 }

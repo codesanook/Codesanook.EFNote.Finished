@@ -1,26 +1,17 @@
 ﻿@using Codesanook.EFNote.MvcCoreWeb.ViewModels
 @using Codesanook.EFNote.MvcCoreWeb.Controllers
+
 @model NoteIndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Note - index";
 }
 <div class="main-panel">
-    <div class="row">
-        <div class="col-12">
-            @if (TempData[nameof(NoteController.ErrorMessageKey)] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @TempData[nameof(NoteController.ErrorMessageKey)]
-                </div>
-            }
-        </div>
-    </div>
     <div class="notebook-list">
         @foreach (var notebook in Model.AllNotebooks)
         {
             @Html.ActionLink(
                notebook.Name,
-               "index",
+               nameof(NoteController.Index),
                new { selectedNotebookId = notebook.Id },
                new
                     {
@@ -36,7 +27,7 @@
         {
             @Html.ActionLink(
                note.Title,
-               "index",
+               nameof(NoteController.Index),
                new { selectedNotebookId = note.NotebookId, selectedNoteId = note.Id },
                new
                     {
@@ -44,6 +35,7 @@
                    ? "note-list-item -selected"
                    : "note-list-item"
                }
+
            )
         }
     </div>
@@ -56,23 +48,36 @@
                             var newNoteActionUrl = Url.Action("Create", new { selectedNotebookId = Model.SelectedNotebook?.Id });
 
                             var saveNoteActionUrl = Model.SelectedNote == null
-                                ? Url.Action("Create")
-                                : Url.Action("Edit", new { id = Model.SelectedNote?.Id });
+                                ? Url.Action(nameof(NoteController.Create))
+                                : Url.Action(nameof(NoteController.Edit), new { id = Model.SelectedNote?.Id });
                         }
 
-                        <a class="btn btn-light" href="@newNoteActionUrl" role="button">
-                            <i class="fa fa-file"></i> New
-                        </a>
                         <button class="btn btn-light" formaction="@saveNoteActionUrl" formmethod="post">
                             <i class="fa fa-save"></i> Save
                         </button>
+                        <a class="btn btn-light" href="@newNoteActionUrl" role="button">
+                            <i class="fa fa-plus-circle"></i> New
+                        </a>
+                        @if (Model.SelectedNote != null)
+                        {
+                            <a class="btn btn-light"
+                               href="@Url.Action(
+                                    nameof(NoteController.Delete),
+                                    "Note",
+                                    new { id = Model.SelectedNote.Id }
+                               )"
+                               role="button">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
+                        }
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.Label("Notebook")
                     @Html.DropDownListFor(
-                        m=>m.SelectedNote.NotebookId,
-                        Model.AllNotebooks.Select(b=>new SelectListItem() {
+                        m => m.SelectedNote.NotebookId,
+                        Model.AllNotebooks.Select(b => new SelectListItem()
+                             {
                             Value = b.Id.ToString(),
                             Text = b.Name,
                             Selected = (b.Id == Model.SelectedNote?.NotebookId || b.Id == Model.SelectedNotebook?.Id)

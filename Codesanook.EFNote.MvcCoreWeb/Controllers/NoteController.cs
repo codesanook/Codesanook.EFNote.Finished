@@ -6,6 +6,7 @@ using Codesanook.EFNote.MvcCoreWeb.ViewModels;
 using System.Linq;
 using Codesanook.EFNote.Core.DomainModels;
 using System.Data.Entity;
+using Microsoft.AspNetCore.Http;
 
 namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 {
@@ -48,7 +49,7 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 
         public IActionResult Create(int? selectedNotebookId)
         {
-            if(selectedNotebookId == null)
+            if (selectedNotebookId == null)
             {
                 TempData[nameof(ErrorMessageKey)] = "Notebook not selected. If not exist, please create new and select";
                 return RedirectToAction(nameof(Index));
@@ -126,5 +127,25 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() =>
             View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+        public IActionResult Delete(int id)
+        {
+            var note = dbContext.Notes.Find(id);
+            return View(note);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id, IFormCollection _)
+        {
+            var note = dbContext.Notes.Find(id);
+            foreach (var tag in note.Tags)
+            {
+                note.Tags.Remove(tag);
+            }
+
+            dbContext.Notes.Remove(note);
+            dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

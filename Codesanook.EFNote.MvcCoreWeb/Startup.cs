@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace Codesanook.EFNote.MvcCoreWeb
 {
@@ -20,12 +23,25 @@ namespace Codesanook.EFNote.MvcCoreWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
+            services
+                .AddControllersWithViews()
+                .AddSessionStateTempDataProvider();
 
             //EF context objects should be scoped for a per-request lifetime.
             services.AddScoped(_ => new NoteDbContext(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+              {
+                  options.CheckConsentNeeded = context => true;
+                  options.MinimumSameSitePolicy = SameSiteMode.None;
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,19 +60,17 @@ namespace Codesanook.EFNote.MvcCoreWeb
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSession();// IMPORTANT: This session call MUST go before UseMvc()
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Note}/{action=Index}/{id?}" 
+                    pattern: "{controller=Note}/{action=Index}/{id?}"
                 );
             });
-
         }
     }
 }

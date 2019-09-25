@@ -7,10 +7,35 @@
 
 .notebook-list {
     @include make-col-ready();
+
+    @include media-breakpoint-up(sm) {
+        @include make-col(3);
+    }
+
+    @include media-breakpoint-up(lg) {
+        @include make-col(2);
+    }
 }
 
 .note-list {
     @include make-col-ready();
+    @include media-breakpoint-up(sm) {
+        @include make-col(3);
+    }
+
+    @include media-breakpoint-up(lg) {
+        @include make-col(2);
+    }
+}
+
+.note-item-panel {
+    @include make-col-ready();
+    @include media-breakpoint-up(sm) {
+        @include make-col(6);
+    }
+    @include media-breakpoint-up(lg) {
+        @include make-col(8);
+    }
 }
 
 .notebook-list-item {
@@ -29,12 +54,9 @@
     }
 }
 
-.note-item-panel {
-    @include make-col-ready();
-}
 
 .note-item {
-    .content{
-       height:300px; 
+    .content {
+        height: 300px;
     }
 }

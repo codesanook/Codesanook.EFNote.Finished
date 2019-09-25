@@ -14,6 +14,7 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         private readonly NoteDbContext dbContext;
 
         public NoteController(NoteDbContext dbContext) => this.dbContext = dbContext;
+        public const string ErrorMessageKey = "errorMessage";
 
         public IActionResult Index(int? selectedNotebookId, int? selectedNoteId)
         {
@@ -45,13 +46,48 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
             return View(model);
         }
 
-        public IActionResult Create(NoteViewModel viewModel)
+        public IActionResult Create(int? selectedNotebookId)
+        {
+            if(selectedNotebookId == null)
+            {
+                TempData[nameof(ErrorMessageKey)] = "Notebook not selected. If not exist, please create new and select";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var allNotebooks = dbContext.Notebooks.ToList();
+            var selectedNotebook = allNotebooks.SingleOrDefault(b => b.Id == selectedNotebookId);
+
+            var allNotesForSelectedNotebook = dbContext.Notes
+                .Where(n => n.Notebook.Id == selectedNotebookId)
+                .Include(n => n.Tags)
+                .AsEnumerable()
+                .Select(n => new NoteViewModel()
+                {
+                    Id = n.Id,
+                    Title = n.Title,
+                    Content = n.Content,
+                    NotebookId = n.NotebookId,
+                    Tags = string.Join(", ", n.Tags.Select(t => t.Name)),
+                })
+                .ToList();
+
+            var model = new NoteIndexViewModel()
+            {
+                AllNotebooks = allNotebooks,
+                SelectedNotebook = selectedNotebook,
+                AllNotesForSelectedNotebook = allNotesForSelectedNotebook,
+            };
+            return View(nameof(Index), model);
+        }
+
+        [HttpPost]
+        public IActionResult Create([Bind(Prefix = "SelectedNote")] NoteViewModel viewModel)
         {
             var note = new Note()
             {
                 Title = viewModel.Title,
                 Content = viewModel.Content,
-                NotebookId = viewModel.NotebookId,
+                NotebookId = viewModel.NotebookId
             };
 
             //var tags = viewModel.Tags.Select(t => new Tag { Id = t.Id });
@@ -66,7 +102,7 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
             return RedirectToIndex(note);
         }
 
-        public IActionResult Edit(int id, Note note)
+        public IActionResult Edit(int id, [Bind(Prefix = "SelectedNote")] Note note)
         {
             var existingNote = dbContext.Notes.SingleOrDefault(n => n.Id == id);
             existingNote.Title = note.Title;

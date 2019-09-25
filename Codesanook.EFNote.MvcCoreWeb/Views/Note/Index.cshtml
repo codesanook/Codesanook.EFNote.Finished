@@ -1,9 +1,20 @@
 ﻿@using Codesanook.EFNote.MvcCoreWeb.ViewModels
+@using Codesanook.EFNote.MvcCoreWeb.Controllers
 @model NoteIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 <div class="main-panel">
+    <div class="row">
+        <div class="col-12">
+            @if (TempData[nameof(NoteController.ErrorMessageKey)] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData[nameof(NoteController.ErrorMessageKey)]
+                </div>
+            }
+        </div>
+    </div>
     <div class="notebook-list">
         @foreach (var notebook in Model.AllNotebooks)
         {
@@ -37,26 +48,50 @@
         }
     </div>
     <div class="note-item-panel">
-        <div class="note-menu-bar">
-            <a href="@Url.Action("Edit", new { id = Model.SelectedNote?.Id })">
-                <i class="fa fa-save"></i>
-            </a>
-        </div>
         <div class="note-item">
-            <form>
-                @Html.HiddenFor(m=>m.SelectedNote.Id)
-                @Html.HiddenFor(m=>m.SelectedNote.NotebookId)
+            <form method="post">
+                <div class="form-group">
+                    <div class="note-menu-bar">
+                        @{
+                            var newNoteActionUrl = Url.Action("Create", new { selectedNotebookId = Model.SelectedNotebook?.Id });
+
+                            var saveNoteActionUrl = Model.SelectedNote == null
+                                ? Url.Action("Create")
+                                : Url.Action("Edit", new { id = Model.SelectedNote?.Id });
+                        }
+
+                        <a class="btn btn-light" href="@newNoteActionUrl" role="button">
+                            <i class="fa fa-file"></i> New
+                        </a>
+                        <button class="btn btn-light" formaction="@saveNoteActionUrl" formmethod="post">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Notebook")
+                    @Html.DropDownListFor(
+                        m=>m.SelectedNote.NotebookId,
+                        Model.AllNotebooks.Select(b=>new SelectListItem() {
+                            Value = b.Id.ToString(),
+                            Text = b.Name,
+                            Selected = (b.Id == Model.SelectedNote?.NotebookId || b.Id == Model.SelectedNotebook?.Id)
+                        }),
+                        "Please select a notebook.",
+                        new { @class = "form-control form-control-sm" }
+                    )
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.SelectedNote.Title)
-                    @Html.TextBoxFor(m => m.SelectedNote.Title, new { @class = "form-control title" })
+                    @Html.TextBoxFor(m => m.SelectedNote.Title, new { @class = "form-control form-control-sm title" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.SelectedNote.Tags) (CSV)
-                    @Html.TextBoxFor(m => m.SelectedNote.Tags, new { @class = "form-control tags" })
+                    @Html.TextBoxFor(m => m.SelectedNote.Tags, new { @class = "form-control form-control-sm tags" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.SelectedNote.Content)
-                    @Html.TextAreaFor(m => m.SelectedNote.Content, new { @class = "form-control content", row = 10 })
+                    @Html.TextAreaFor(m => m.SelectedNote.Content, new { @class = "form-control form-control-sm content", row = 10 })
                 </div>
             </form>
         </div>

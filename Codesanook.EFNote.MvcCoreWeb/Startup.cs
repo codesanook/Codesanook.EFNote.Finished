@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
+using Codesanook.EFNote.Core.Repositories;
+using Codesanook.EFNote.Infrastructure.Repositories;
 
 namespace Codesanook.EFNote.MvcCoreWeb
 {
@@ -29,6 +31,10 @@ namespace Codesanook.EFNote.MvcCoreWeb
 
             //EF context objects should be scoped for a per-request lifetime.
             services.AddScoped(_ => new NoteDbContext(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Register generic
+            //https://ardalis.com/registering-open-generics-in-aspnet-core-dependency-injection
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Codesanook.EFNote.Core.DomainModels
 {
-    public class Note
+    public class Note : EntityBase
     {
         public Note()
         {

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Codesanook.EFNote.Core.DomainModels;
 
-namespace Codesanook.EFNote.MvcCoreWeb.Controllers
+namespace Codesanook.EFNote.Core.DomainModels
 {
     public class TagComparer : IEqualityComparer<Tag>
     {

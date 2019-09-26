@@ -1,5 +1,5 @@
-﻿using Codesanook.EFNote.Core;
-using Codesanook.EFNote.Core.DomainModels;
+﻿using Codesanook.EFNote.Core.DomainModels;
+using Codesanook.EFNote.Core.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -9,13 +9,16 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 {
     public class TagController : Controller
     {
-        private readonly NoteDbContext dbContext;
+        private readonly IRepository<Tag> tagRepository;
 
-        public TagController(NoteDbContext dbContext) => this.dbContext = dbContext;
+        public TagController(IRepository<Tag> tagRepository)
+        {
+            this.tagRepository = tagRepository;
+        }
 
         public IActionResult Index()
         {
-            var tags = dbContext.Tags.OrderBy(t => t.Name).ToList();
+            var tags = tagRepository.List().OrderBy(t => t.Name).ToList();
             return View(tags);
         }
 
@@ -25,49 +28,45 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         public IActionResult Create(Tag model)
         {
             model.Name = FormatTagName(model.Name);
-            dbContext.Tags.Add(model);
-            dbContext.SaveChanges();
+            tagRepository.Add(model);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(int id)
         {
-            var tags = dbContext.Tags.Find(id);
+            var tags = tagRepository.GetById(id);
             return View(tags);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Tag model)
         {
-            var existingNotebook = dbContext.Tags.Find(id);
-            existingNotebook.Name = FormatTagName(model.Name);
-            dbContext.SaveChanges();
+            var existingTag = tagRepository.GetById(id);
+            existingTag.Name = FormatTagName(model.Name);
+            tagRepository.Update(existingTag);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int id)
         {
-            var tag = dbContext.Tags.Find(id);
+            var tag = tagRepository.GetById(id);
             return View(tag);
         }
 
         [HttpPost]
         public IActionResult Delete(int id, IFormCollection formCollection)
         {
-            var tag = dbContext.Tags.Find(id);
-            foreach (var note in tag.Notes)
+            var tag = tagRepository.GetById(id);
+            foreach (var note in tag.Notes.ToList())
             {
-                tag.Notes.Remove(note);//remove relationship but note remove actual note from a database
+                tag.Notes.Remove(note);// Remove relationship but note remove actual note from a database
             }
-            dbContext.Tags.Remove(tag);
-            dbContext.SaveChanges();
 
+            tagRepository.Remove(tag);
             return RedirectToAction(nameof(Index));
         }
 
         private static string FormatTagName(string tagName) =>
             Regex.Replace(tagName.Trim(), @"\s+", "-").ToLower();
-
-
     }
 }

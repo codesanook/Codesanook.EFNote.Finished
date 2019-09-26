@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Codesanook.EFNote.Core.DomainModels
 {
-    public class Notebook
+    public class Notebook : EntityBase
     {
         public Notebook()
         {

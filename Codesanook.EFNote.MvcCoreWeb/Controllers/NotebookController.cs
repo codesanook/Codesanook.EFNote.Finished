@@ -1,5 +1,5 @@
-﻿using Codesanook.EFNote.Core;
-using Codesanook.EFNote.Core.DomainModels;
+﻿using Codesanook.EFNote.Core.DomainModels;
+using Codesanook.EFNote.Core.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -8,13 +8,21 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 {
     public class NotebookController : Controller
     {
-        private readonly NoteDbContext dbContext;
+        private readonly IRepository<Notebook> notebookRepository;
+        private readonly IRepository<Note> noteRepository;
 
-        public NotebookController(NoteDbContext dbContext) => this.dbContext = dbContext;
+        public NotebookController(
+            IRepository<Notebook> notebookRepository,
+            IRepository<Note> noteRepository
+            )
+        {
+            this.notebookRepository = notebookRepository;
+            this.noteRepository = noteRepository;
+        }
 
         public IActionResult Index()
         {
-            var notebooks = dbContext.Notebooks.ToList();
+            var notebooks = notebookRepository.List().OrderBy(b=>b.Name).ToList();
             return View(notebooks);
         }
 
@@ -24,14 +32,13 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         public IActionResult Create(Notebook model)
         {
             model.Name = model.Name.Trim();
-            dbContext.Notebooks.Add(model);
-            dbContext.SaveChanges();
+            notebookRepository.Add(model);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(int id)
         {
-            var notebook = dbContext.Notebooks.Find(id);
+            var notebook = notebookRepository.GetById(id);
             return View(notebook);
         }
 
@@ -39,36 +46,39 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         public IActionResult Edit(int id, Notebook model)
         {
             model.Name = model.Name.Trim();
-            var existingNotebook = dbContext.Notebooks.Find(id);
+            var existingNotebook = notebookRepository.GetById(id);
             existingNotebook.Name = model.Name;
-            dbContext.SaveChanges();
+            notebookRepository.Update(existingNotebook);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int id)
         {
-            var notebook = dbContext.Notebooks.Find(id);
+            var notebook = notebookRepository.GetById(id);
             return View(notebook);
         }
 
         [HttpPost]
         public IActionResult Delete(int id, IFormCollection _)
         {
-            var notebook = dbContext.Notebooks.Find(id);
+            var notebook = notebookRepository.GetById(id);
             var notes = notebook.Notes;
 
-            var noteTags = from note in notes
+            var noteAndItsTag = from note in notes
                            from tag in note.Tags
                            select (note, tag);
 
-            foreach (var (note, tag) in noteTags)
+            foreach (var (note, tag) in noteAndItsTag.ToList())
             {
                 note.Tags.Remove(tag);
             }
 
-            dbContext.Notes.RemoveRange(notes);
-            dbContext.Notebooks.Remove(notebook);
-            dbContext.SaveChanges();
+            foreach(var note in notebook.Notes.ToList())
+            {
+                noteRepository.Remove(note);
+            }
+
+            notebookRepository.Remove(notebook);
             return RedirectToAction(nameof(Index));
         }
     }

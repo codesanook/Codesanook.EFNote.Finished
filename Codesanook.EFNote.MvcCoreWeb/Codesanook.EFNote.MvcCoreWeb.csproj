@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Codesanook.EFNote.Core\Codesanook.EFNote.Core.csproj" />
+    <ProjectReference Include="..\Codesanook.EFNote.Infrastructure\Codesanook.EFNote.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 
         public IActionResult Index()
         {
-            var tags = dbContext.Tags.ToList();
+            var tags = dbContext.Tags.OrderBy(t => t.Name).ToList();
             return View(tags);
         }
 
@@ -65,9 +65,9 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private static string FormatTagName(string tagName) => 
+        private static string FormatTagName(string tagName) =>
             Regex.Replace(tagName.Trim(), @"\s+", "-").ToLower();
-        
+
 
     }
 }

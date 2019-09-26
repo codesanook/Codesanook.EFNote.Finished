@@ -7,6 +7,8 @@ using System.Linq;
 using Codesanook.EFNote.Core.DomainModels;
 using System.Data.Entity;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 
 namespace Codesanook.EFNote.MvcCoreWeb.Controllers
 {
@@ -84,33 +86,53 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         [HttpPost]
         public IActionResult Create([Bind(Prefix = "SelectedNote")] NoteViewModel viewModel)
         {
+            var allTags = GetAllTags(viewModel.Tags);
             var note = new Note()
             {
                 Title = viewModel.Title,
                 Content = viewModel.Content,
-                NotebookId = viewModel.NotebookId
+                NotebookId = viewModel.NotebookId,
+                Tags = allTags
             };
-
-            //var tags = viewModel.Tags.Select(t => new Tag { Id = t.Id });
-            //foreach (var tag in tags)
-            //{
-            //    dbContext.Entry(tag).State = EntityState.Unchanged;
-            //    note.Tags.Add(tag);
-            //}
 
             dbContext.Notes.Add(note);
             dbContext.SaveChanges();
             return RedirectToIndex(note);
         }
 
-        public IActionResult Edit(int id, [Bind(Prefix = "SelectedNote")] Note note)
+        public IActionResult Edit(int id, [Bind(Prefix = "SelectedNote")] NoteViewModel viewModel)
         {
+            var allTags = GetAllTags(viewModel.Tags);
             var existingNote = dbContext.Notes.SingleOrDefault(n => n.Id == id);
-            existingNote.Title = note.Title;
-            existingNote.Content = note.Content;
-            existingNote.NotebookId = note.NotebookId;//update notebook
+            var newTagsToAdd = allTags.Except(existingNote.Tags, new TagComparer()).ToList();
+            var existingTagsToRemove = existingNote.Tags.Except(allTags, new TagComparer()).ToList();
+            foreach (var tag in newTagsToAdd)
+            {
+                existingNote.Tags.Add(tag);
+            }
+
+            foreach (var tag in existingTagsToRemove)
+            {
+                existingNote.Tags.Remove(tag);
+            }
+
+            existingNote.Title = viewModel.Title;
+            existingNote.Content = viewModel.Content;
+            existingNote.NotebookId = viewModel.NotebookId;//update notebook
             dbContext.SaveChanges();
             return RedirectToIndex(existingNote);
+        }
+
+        private IList<Tag> GetAllTags(string tagNamesValue)
+        {
+            var tagNames = string.IsNullOrWhiteSpace(tagNamesValue)
+                ? Array.Empty<string>()
+                : tagNamesValue.ToLower()?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim());
+
+            var existingTags = dbContext.Tags.Where(t => tagNames.Contains(t.Name)).ToList();
+            var newTags = tagNames.Select(t => new Tag() { Name = t }).Except(existingTags, new TagComparer());
+            var allTags = existingTags.Concat(newTags).ToList();
+            return allTags;
         }
 
         private IActionResult RedirectToIndex(Note note)
@@ -138,7 +160,8 @@ namespace Codesanook.EFNote.MvcCoreWeb.Controllers
         public IActionResult Delete(int id, IFormCollection _)
         {
             var note = dbContext.Notes.Find(id);
-            foreach (var tag in note.Tags)
+            var allTags = note.Tags.ToList();
+            foreach (var tag in allTags)
             {
                 note.Tags.Remove(tag);
             }

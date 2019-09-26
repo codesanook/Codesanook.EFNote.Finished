@@ -9,21 +9,27 @@ GO
 -- Create Notebooks table
 CREATE TABLE [dbo].[Notebooks] (
     [Id] INT IDENTITY(1,1) NOT NULL,
-	[Name] NVARCHAR(256) NOT NULL,
+	[Name] NVARCHAR(64) NOT NULL,
     CONSTRAINT [PK_Notebooks_Id] PRIMARY KEY CLUSTERED ([Id])
 );
+
+-- Create a unique index
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Notebooks_Name] ON Notebooks([Name]);
 
 -- Create Tags table
 CREATE TABLE [dbo].[Tags] (
     [Id] INT IDENTITY(1,1) NOT NULL,
-	[Name] NVARCHAR(512) NOT NULL,
+	[Name] NVARCHAR(64) NOT NULL,
     CONSTRAINT [PK_Tags_Id] PRIMARY KEY CLUSTERED ([Id])
 );
+
+-- Create an unique index
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Tags_Name] ON Tags([Name]);
 
 -- Create Notes table
 CREATE TABLE [dbo].[Notes](
 	[Id] INT IDENTITY(1,1) NOT NULL,
-	[Title] NVARCHAR(512) NOT NULL,
+	[Title] NVARCHAR(256) NOT NULL,
 	[Content] NVARCHAR(MAX) NOT NULL,
 	[CreatedUtc] DATETIME NOT NULL CONSTRAINT [DF_Notes_CreatedUtc] DEFAULT GETUTCDATE(), -- Default to UTC now
 	[UpdatedUtc] DATETIME NULL,
@@ -34,8 +40,11 @@ CREATE TABLE [dbo].[Notes](
 	CONSTRAINT [FK_Notes_NotebookId] FOREIGN KEY ([NotebookId]) REFERENCES Notebooks([Id]) -- Foreign key to Notebooks table
 );
 
--- Create index on foreign key NotebookId
+-- Create an index on foreign key NotebookId
 CREATE NONCLUSTERED INDEX [IX_Notes_NotebookId] ON Notes(NotebookId);
+
+-- Create an unique index
+CREATE NONCLUSTERED INDEX [IX_Notes_Title] ON Notes([Title]);
 
 CREATE TABLE [dbo].[NoteTags](
 	[NoteId] INT NOT NULL,
